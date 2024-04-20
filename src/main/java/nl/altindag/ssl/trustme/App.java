@@ -53,8 +53,8 @@ public class App extends Application {
         Scene scene = new Scene(root);
         stage.setTitle(TITLE);
         stage.setScene(scene);
-        stage.setWidth(800);
-        stage.setHeight(600);
+        stage.setWidth(500);
+        stage.setHeight(400);
         stage.setResizable(false);
 
         stage.show();
