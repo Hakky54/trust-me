@@ -17,24 +17,28 @@ package nl.altindag.ssl.trustme.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import nl.altindag.ssl.trustme.exception.PingException;
 import nl.altindag.ssl.trustme.service.PingService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import nl.altindag.ssl.trustme.util.Logger;
 import org.springframework.stereotype.Controller;
 
 import javax.net.ssl.SSLHandshakeException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.CENTER;
 
 @Controller
-public class SearchController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
+public class SearchController implements Initializable {
 
     @FXML
     private TextField urlField;
+    @FXML
+    private TextArea loggerArea;
+
     private final PingService pingService;
 
     public SearchController(PingService pingService) {
@@ -52,15 +56,24 @@ public class SearchController {
         });
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loggerArea.textProperty().bind(Logger.logContainerProperty());
+        Logger.logContainerProperty().addListener((observable, newValue, oldValue) -> {
+            loggerArea.selectPositionCaret(loggerArea.getLength());
+            loggerArea.deselect();
+        });
+    }
+
     @FXML
     public void onEnter(ActionEvent event) {
         String url = urlField.getText().toLowerCase();
         try {
             pingService.ping(url);
-            LOGGER.info("Target server [{}] is already trusted", url);
+            Logger.log(String.format("Certificate of [%s] is already trusted", url));
         } catch (PingException pingException) {
             if (pingException.getCause() instanceof SSLHandshakeException) {
-                LOGGER.info("Target server [{}] is not trusted", url);
+                Logger.log(String.format("Certificate of [%s] is not trusted", url));
             }
         }
     }

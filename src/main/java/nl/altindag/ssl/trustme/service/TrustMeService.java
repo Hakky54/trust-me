@@ -19,9 +19,8 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import nl.altindag.ssl.model.TrustManagerParameters;
+import nl.altindag.ssl.trustme.util.Logger;
 import nl.altindag.ssl.util.TrustManagerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.net.ssl.SSLEngine;
@@ -34,8 +33,6 @@ import java.util.function.Function;
 
 @Service
 public class TrustMeService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TrustMeService.class);
 
     private static final Function<TrustManagerParameters, String> hostnameExtractor = trustManagerParameters -> trustManagerParameters
             .getSslEngine().map(SSLEngine::getPeerHost)
@@ -70,10 +67,13 @@ public class TrustMeService {
         Optional<ButtonType> buttonType = alert.showAndWait();
         boolean shouldBeTrusted = buttonType.filter(type -> type == ButtonType.YES).isPresent();
         hostnameToShouldBeTrusted.put(hostname, shouldBeTrusted);
+
         if (shouldBeTrusted) {
-            LOGGER.info("User trusted the target server. Adding the certificates to the list of trusted certificates....");
+            Logger.log("User trusted server. Adding the certificate to the list of trusted certificates....");
             TrustManagerUtils.addCertificate(trustManager, certificate);
-            LOGGER.info("Server is now trusted");
+            Logger.log("Server is now trusted");
+        } else {
+            Logger.log("User decided not to trust the server. Not prompting anymore");
         }
     }
 
