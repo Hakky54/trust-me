@@ -53,7 +53,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="urlField" onAction="#onEnter" promptText="enter url" />
+                  <TextField fx:id="urlField" alignment="CENTER" maxWidth="400.0" onAction="#onEnter" promptText="enter url" GridPane.halignment="CENTER" />
                   <TextArea fx:id="loggerArea" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
                </children>
             </GridPane>
