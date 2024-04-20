@@ -17,6 +17,8 @@ This option demonstrates how to integrate it in your GUI app, and it will prompt
 - Maven
 - Terminal
 
+Although this project requires JDK 21, the library itself is compatible with JDK 8 and therefor will work with that version.
+
 Run the following commands in your terminal:
 
 ```bash
