@@ -109,7 +109,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${version.spring-boot}</version>
                 <configuration>
-                    <finalName>Welk-Lidwoord</finalName>
+                    <finalName>trust-me</finalName>
                     <mainClass>nl.altindag.ssl.trustme.App</mainClass>
                 </configuration>
                 <executions>
