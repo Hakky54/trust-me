@@ -1,7 +1,7 @@
 [![Apache2 license](https://img.shields.io/badge/license-Aache2.0-blue.svg)](https://github.com/Hakky54/sslcontext-kickstart/blob/master/LICENSE)
 
 # Trust Me 🔐
-A proof-of-concept GUI for prompting an user when a certificate is not trusted yet. 
+A proof-of-concept GUI for prompting an user when a certificate is not trusted yet. The ssl configuration will be reloaded during runtime.
 
 This GUI app demonstrates the feature of [Trusting additional new certificates at runtime](https://github.com/Hakky54/sslcontext-kickstart?tab=readme-ov-file#trust-additional-new-certificates-at-runtime) from the library [sslcontext-kickstart](https://github.com/Hakky54/sslcontext-kickstart)
 It might occur that your truststore has outdated certificates and is not easy to maintain or it just calls servers which has recently updated their certificates. 
